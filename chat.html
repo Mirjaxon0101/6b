@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>6-B sinf chat</title>
+    <style>
+        body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+        #chatBox { display: none; background: white; border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 10px; }
+        #msgInput { width: 80%; padding: 5px; }
+        #sendBtn { padding: 5px 10px; }
+        .message { margin: 5px 0; }
+        #login { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<h2>6-B sinf chat</h2>
+
+<div id="login">
+    <label>Ismingizni kiriting:</label>
+    <input type="text" id="nameInput">
+    <button onclick="login()">Kirish</button>
+    <p id="error" style="color:red;"></p>
+</div>
+
+<div id="chatBox"></div>
+
+<div id="chatControls" style="display:none;">
+    <input type="text" id="msgInput" placeholder="Xabar yozing...">
+    <button id="sendBtn" onclick="sendMessage()">Yuborish</button>
+</div>
+
+<script>
+    const allowedNames = ['Akmal', 'Aziz', 'Umar', 'Mirjaxon'];
+    let userName = '';
+
+    function login() {
+        const name = document.getElementById('nameInput').value.trim();
+        if (allowedNames.includes(name)) {
+            userName = name;
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('chatBox').style.display = 'block';
+            document.getElementById('chatControls').style.display = 'block';
+        } else {
+            document.getElementById('error').textContent = "Faqat Akmal, Aziz, Hajarbibi, Mirjaxon yoki Umar kirishi mumkin!";
+        }
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('msgInput');
+        const msg = input.value.trim();
+        if (msg !== '') {
+            const chatBox = document.getElementById('chatBox');
+            const message = document.createElement('div');
+            message.className = 'message';
+            message.innerHTML = `<strong>${userName}:</strong> ${msg}`;
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>
